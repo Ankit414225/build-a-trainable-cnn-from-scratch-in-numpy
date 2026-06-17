@@ -30,8 +30,9 @@ import numpy as np
 def exp_shifted(logits):
     return np.exp(logits-row_max(logits))
 
-# Step 5 - stable_softmax (not yet solved)
-# TODO: implement
+# Step 5 - stable_softmax
+def stable_softmax(logits):
+    return exp_shifted(logits)/row_sum(exp_shifted(logits))
 
 # Step 6 - one_hot (not yet solved)
 # TODO: implement
