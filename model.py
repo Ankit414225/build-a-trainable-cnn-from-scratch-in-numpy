@@ -34,8 +34,12 @@ def exp_shifted(logits):
 def stable_softmax(logits):
     return exp_shifted(logits)/row_sum(exp_shifted(logits))
 
-# Step 6 - one_hot (not yet solved)
-# TODO: implement
+# Step 6 - one_hot
+def one_hot(labels, num_classes):
+    hot_encoded=np.zeros((len(labels),num_classes),dtype=float)
+    rows=np.arange(len(labels))
+    hot_encoded[rows,labels]=1
+    return hot_encoded
 
 # Step 7 - gather_true_class_probs (not yet solved)
 # TODO: implement
