@@ -84,8 +84,21 @@ def pad_2d(images, pad):
 def output_spatial_size(input_size, kernel, stride, padding):
     return ((input_size+2*padding-kernel)//stride)+1
 
-# Step 15 - im2col (not yet solved)
-# TODO: implement
+# Step 15 - im2col
+def im2col(images, kernel_h, kernel_w, stride, padding):
+    images=pad_2d(images,padding)
+    N,C,H,W=images.shape
+    out_h=output_spatial_size(H,kernel_h,stride,0)
+    out_w=output_spatial_size(W,kernel_w,stride,0)
+    imcols=np.zeros((N*out_h*out_w,C*kernel_h*kernel_w),dtype=int)
+    rows=0
+    for n in range(N):
+        for i in range(out_h):
+            for j in range(out_w):
+                patch=images[n,:,i*stride:i*stride+kernel_h,j*stride:j*stride+kernel_w]
+                imcols[rows]=patch.reshape(-1)
+                rows+=1
+    return imcols
 
 # Step 16 - col2im (not yet solved)
 # TODO: implement
