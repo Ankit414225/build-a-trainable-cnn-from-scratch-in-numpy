@@ -90,7 +90,7 @@ def im2col(images, kernel_h, kernel_w, stride, padding):
     N,C,H,W=images.shape
     out_h=output_spatial_size(H,kernel_h,stride,0)
     out_w=output_spatial_size(W,kernel_w,stride,0)
-    imcols=np.zeros((N*out_h*out_w,C*kernel_h*kernel_w),dtype=int)
+    imcols=np.zeros((N*out_h*out_w,C*kernel_h*kernel_w),dtype=images.dtype)
     rows=0
     for n in range(N):
         for i in range(out_h):
@@ -120,8 +120,28 @@ def col2im(cols, input_shape, kernel_h, kernel_w, stride, padding):
         images=images[:,:,padding:-padding,padding:-padding]
     return images
 
-# Step 17 - conv2d_forward (not yet solved)
-# TODO: implement
+# Step 17 - conv2d_forward
+def conv2d_forward(x, weights, bias, stride, padding):
+    N,Cin,H,W=x.shape
+    Cout,Cin,kernel_h,kernel_w=weights.shape
+    Xcols=im2col(x,kernel_h,kernel_w,stride,padding)
+    out_h=output_spatial_size(H,kernel_h,stride,0)
+    out_w=output_spatial_size(W,kernel_w,stride,0)
+    w_flat=weights.reshape(Cout,-1)
+    w_flat_transpose=np.transpose(w_flat,(1,0)) #or shortcut we can write w_flat.T
+    y=Xcols@w_flat_transpose+bias
+    y=y.reshape(N,out_h,out_w,Cout)
+    y=np.transpose(y,(0,3,1,2))
+    cache_dic={
+        'x_shape':x.shape,
+        'weights':weights,
+        'cols':Xcols,
+        'stride':stride,
+        'padding':padding,
+        'kernel_h':kernel_h,
+        'kernel_w':kernel_w
+    }
+    return y,cache_dic
 
 # Step 18 - conv2d_grad_input (not yet solved)
 # TODO: implement
