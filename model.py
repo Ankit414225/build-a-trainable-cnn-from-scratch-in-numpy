@@ -173,8 +173,9 @@ def conv2d_grad_weights(d_out, cache):
 def conv2d_grad_bias(d_out):
     return np.sum(d_out, axis=(0,2,3))
 
-# Step 21 - conv2d_backward (not yet solved)
-# TODO: implement
+# Step 21 - conv2d_backward
+def conv2d_backward(d_out, cache):
+    return (conv2d_grad_input(d_out,cache),conv2d_grad_weights(d_out,cache),conv2d_grad_bias(d_out))
 
 # Step 22 - maxpool2d_forward (not yet solved)
 # TODO: implement
