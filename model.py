@@ -125,8 +125,8 @@ def conv2d_forward(x, weights, bias, stride, padding):
     N,Cin,H,W=x.shape
     Cout,Cin,kernel_h,kernel_w=weights.shape
     Xcols=im2col(x,kernel_h,kernel_w,stride,padding)
-    out_h=output_spatial_size(H,kernel_h,stride,0)
-    out_w=output_spatial_size(W,kernel_w,stride,0)
+    out_h=output_spatial_size(H,kernel_h,stride,padding)
+    out_w=output_spatial_size(W,kernel_w,stride,padding)
     w_flat=weights.reshape(Cout,-1)
     w_flat_transpose=np.transpose(w_flat,(1,0)) #or shortcut we can write w_flat.T
     y=Xcols@w_flat_transpose+bias
