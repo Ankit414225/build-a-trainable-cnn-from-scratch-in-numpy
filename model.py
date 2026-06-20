@@ -270,8 +270,13 @@ def linear_forward(x, weights, bias):
     }
     return y,cache
 
-# Step 30 - linear_grad_input (not yet solved)
-# TODO: implement
+# Step 30 - linear_grad_input
+import numpy as np
+
+def linear_grad_input(d_out, cache):
+    weights=cache['weights']
+    d_x=d_out@weights.T
+    return d_x
 
 # Step 31 - linear_grad_weights (not yet solved)
 # TODO: implement
