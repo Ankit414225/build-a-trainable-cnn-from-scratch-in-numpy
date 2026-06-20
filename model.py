@@ -488,23 +488,12 @@ def build_synthetic_image_dataset(
     in_channels=1,
     seed=0
 ):
-    rng = np.random.default_rng(seed)
-    y = rng.integers(
-        0,
-        num_classes,
-        size=num_samples
-    )
-    x = rng.standard_normal(
-        (
-            num_samples,
-            in_channels,
-            image_size,
-            image_size
-        )
-    )
-    shift = y - (num_classes - 1) / 2
-    x += shift[:, None, None, None]
-    return x, y
+    rng=np.random.default_rng(seed)
+    y=rng.integers(0,num_classes,size=num_samples)
+    x=rng.standard_normal((num_samples,in_channels,image_size,image_size))
+    shift=y-(num_classes-1)/2
+    x+=shift.reshape(-1,1,1,1)
+    return x,y
 
 # Step 53 - shuffle_indices
 import numpy as np
