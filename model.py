@@ -536,8 +536,12 @@ def build_synthetic_image_dataset(
     x += shift[:, None, None, None]
     return x, y
 
-# Step 53 - shuffle_indices (not yet solved)
-# TODO: implement
+# Step 53 - shuffle_indices
+import numpy as np
+
+def shuffle_indices(n, seed=0):
+    np.random.seed(seed)
+    return np.random.permutation(n)
 
 # Step 54 - train_test_split (not yet solved)
 # TODO: implement
