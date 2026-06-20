@@ -330,8 +330,12 @@ def adam_update_v(v, grad, beta_two):
 def adam_bias_correct(moment, beta, t):
     return moment/(1-beta**t)
 
-# Step 40 - adam_param_step (not yet solved)
-# TODO: implement
+# Step 40 - adam_param_step
+import numpy as np
+
+def adam_param_step(param, m_hat, v_hat, lr, eps):
+    denom=np.sqrt(v_hat)+eps
+    return param-lr*(m_hat/denom)
 
 # Step 41 - adam_step (not yet solved)
 # TODO: implement
