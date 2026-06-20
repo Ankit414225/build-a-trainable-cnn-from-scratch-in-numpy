@@ -517,15 +517,12 @@ def train_test_split(x, y, test_fraction=0.2, seed=0):
 
 # Step 55 - iterate_minibatches
 def iterate_minibatches(x, y, batch_size, seed=0):
-    idx = shuffle_indices(len(x), seed)
-
-    for start in range(0, len(idx) - batch_size + 1, batch_size):
-        batch_idx = idx[start:start + batch_size]
-
-        xb = x[batch_idx]
-        yb = y[batch_idx]
-
-        yield xb, yb
+    idx=shuffle_indices(len(x),seed)
+    for start in range(0,len(idx)-batch_size+1,batch_size):
+        batch_idx=idx[start:start+batch_size]
+        xb=x[batch_idx]
+        yb=y[batch_idx]
+        yield xb,yb #yield act as a generator
 
 # Step 56 - train_step
 def train_step(params, opt_state, xb, yb,
