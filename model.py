@@ -285,8 +285,11 @@ def linear_grad_weights(x, dout):
     d_w=x.T@dout
     return d_w
 
-# Step 32 - linear_grad_bias (not yet solved)
-# TODO: implement
+# Step 32 - linear_grad_bias
+import numpy as np
+
+def linear_grad_bias(dout):
+    return np.sum(dout,axis=0)
 
 # Step 33 - linear_backward (not yet solved)
 # TODO: implement
