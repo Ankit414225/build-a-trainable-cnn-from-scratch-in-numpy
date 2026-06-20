@@ -245,8 +245,14 @@ def relu_backward(d_out, cache):
     x=cache['x']
     return d_out*(x>0)
 
-# Step 27 - flatten_forward (not yet solved)
-# TODO: implement
+# Step 27 - flatten_forward
+def flatten_forward(x):
+    N,C,H,W=x.shape
+    cache={
+        'x_shape':x.shape
+    }
+    
+    return (x.reshape(N,-1),cache)
 
 # Step 28 - flatten_backward (not yet solved)
 # TODO: implement
