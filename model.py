@@ -477,8 +477,8 @@ def lenet_backward(dlogits, caches):
 
 # Step 51 - lenet_predict
 def lenet_predict(x, params):
-    logits, _ = lenet_forward(x, params)
-    return np.argmax(logits, axis=1)
+    logits,_=lenet_forward(x,params)
+    return argmax_rows(logits)
 
 # Step 52 - build_synthetic_image_dataset
 def build_synthetic_image_dataset(
