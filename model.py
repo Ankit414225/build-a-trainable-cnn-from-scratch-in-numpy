@@ -435,36 +435,19 @@ def backward_conv_block(dout, cache):
 
 # Step 49 - backward_classifier_block
 def backward_classifier_block(dlogits, cache):
-
-    d_relu, dw2, db2 = linear_backward(
-        dlogits,
-        cache['fc2_cache']
-    )
-
-    d_fc1 = relu_backward(
-        d_relu,
-        cache['relu_cache']
-    )
-
-    d_flat, dw1, db1 = linear_backward(
-        d_fc1,
-        cache['fc1_cache']
-    )
-
-    dx = flatten_backward(
-        d_flat,
-        cache['flatten_cache']
-    )
-
+    d_relu,dw2,db2=linear_backward(dlogits,cache['fc2_cache'])
+    d_fc1=relu_backward(d_relu,cache['relu_cache'])
+    d_flat,dw1,db1=linear_backward(d_fc1,cache['fc1_cache'])
+    dx=flatten_backward(d_flat,cache['flatten_cache'])
     return {
-        'dx': dx,
-        'fc1': {
-            'dW': dw1,
-            'db': db1
+        'dx':dx,
+        'fc1':{
+            'dW':dw1,
+            'db':db1
         },
-        'fc2': {
-            'dW': dw2,
-            'db': db2
+        'fc2':{
+            'dW':dw2,
+            'db':db2
         }
     }
 
