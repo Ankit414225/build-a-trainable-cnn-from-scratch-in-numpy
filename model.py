@@ -295,8 +295,10 @@ def linear_grad_bias(dout):
 def linear_backward(dout, cache):
     return (linear_grad_input(dout,cache),linear_grad_weights(x,dout),linear_grad_bias(dout))
 
-# Step 34 - softmax_cross_entropy_forward (not yet solved)
-# TODO: implement
+# Step 34 - softmax_cross_entropy_forward
+def softmax_cross_entropy_forward(logits, y):
+    probs=stable_softmax(logits)
+    return abs(cross_entropy_loss(probs,y,eps=1e-12))
 
 # Step 35 - softmax_cross_entropy_backward (not yet solved)
 # TODO: implement
