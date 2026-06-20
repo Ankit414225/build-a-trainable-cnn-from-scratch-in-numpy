@@ -177,11 +177,38 @@ def conv2d_grad_bias(d_out):
 def conv2d_backward(d_out, cache):
     return (conv2d_grad_input(d_out,cache),conv2d_grad_weights(d_out,cache),conv2d_grad_bias(d_out))
 
-# Step 22 - maxpool2d_forward (not yet solved)
-# TODO: implement
+# Step 22 - maxpool2d_forward
+def maxpool2d_forward(x, kernel, stride):
+    N,C,H,W=x.shape
+    out_h=output_spatial_size(H,kernel,stride,0)
+    out_w=output_spatial_size(W,kernel,stride,0)
+    out=np.zeros((N,C,out_h,out_w))
+    argmax=np.zeros((N,C,out_h,out_w),dtype=int)
+    for n in range(N):
+        for c in range(C):
+            for i in range(out_h):
+                for j in range(out_w):
+                    window=x[n,c,i*stride:i*stride+kernel,j*stride:j*stride+kernel]
+                    flat=window.reshape(-1)
+                    out[n,c,i,j]=np.max(flat)
+                    argmax[n,c,i,j]=np.argmax(flat)
+    cache={
+        'x_shape':x.shape,
+        'argmax':argmax,
+        'kernel':kernel,
+        'stride':stride
 
-# Step 23 - scatter_grad_window (not yet solved)
-# TODO: implement
+    }
+    return out,cache
+
+# Step 23 - scatter_grad_window
+import numpy as np
+
+def scatter_grad_window(grad_value, argmax_index, kernel):
+    kernel_window=np.zeros((kernel,kernel))
+    kernel_flat=kernel_window.reshape(-1)
+    kernel_flat[argmax_index]=grad_value
+    return kernel_flat.reshape(kernel_window.shape)
 
 # Step 24 - maxpool2d_backward (not yet solved)
 # TODO: implement
