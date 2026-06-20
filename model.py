@@ -590,42 +590,20 @@ def train_loop(params, x_train, y_train,
                seed=0):
 
     opt_state = {}
-
-    for layer in ['conv1', 'conv2', 'fc1', 'fc2']:
-
-        opt_state[layer] = {}
-
-        for pname in ['W', 'b']:
-
-            param = params[layer][pname]
-
-            opt_state[layer][pname] = {
-                'm': np.zeros_like(param),
-                'v': np.zeros_like(param)
+    for layer in ['conv1','conv2','fc1','fc2']:
+        opt_state[layer]={}
+        for pname in ['W','b']:
+            param=params[layer][pname]
+            opt_state[layer][pname]={
+                'm':np.zeros_like(param),
+                'v':np.zeros_like(param)
             }
-
-    step_counter = 0
-    loss_history = []
-
+    step_counter=0
+    loss_history=[]
     for epoch in range(num_epochs):
-
-        params, opt_state, step_counter, losses = train_one_epoch(
-            params,
-            opt_state,
-            x_train,
-            y_train,
-            batch_size,
-            lr,
-            beta_one,
-            beta_two,
-            eps,
-            step_counter,
-            seed + epoch
-        )
-
-        loss_history.extend(losses)
-
-    return params, loss_history
+        params,opt_state,step_counter,loss=train_one_epoch(params,opt_state,x_train,y_train,batch_size,lr,beta_one,beta_two,eps,step_counter,seed+epoch)
+        loss_history.extend(loss)
+    return params,loss_history
 
 # Step 59 - evaluate
 def evaluate(params, x, y):
