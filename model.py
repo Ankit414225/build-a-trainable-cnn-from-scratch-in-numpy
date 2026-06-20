@@ -453,39 +453,26 @@ def backward_classifier_block(dlogits, cache):
 
 # Step 50 - lenet_backward
 def lenet_backward(dlogits, caches):
-
-    classifier_grads = backward_classifier_block(
-        dlogits,
-        caches['classifier']
-    )
-
-    dx2, dW2, db2 = backward_conv_block(
-        classifier_grads['dx'],
-        caches['block2']
-    )
-
-    dx1, dW1, db1 = backward_conv_block(
-        dx2,
-        caches['block1']
-    )
-
+    classifier_grads=backward_classifier_block(dlogits,caches['classifier'])
+    dx2,dw2,db2=backward_conv_block(classifier_grads['dx'],caches['block2'])
+    dx1,dw1,db1=backward_conv_block(dx2,caches['block1'])
     return {
-        'conv1': {
-            'dW': dW1,
-            'db': db1
+        'conv1':{
+            'dW':dw1,
+            'db':db1
         },
-        'conv2': {
-            'dW': dW2,
-            'db': db2
+        'conv2':{
+            'dW':dw2,
+            'db':db2
         },
-        'fc1': {
-            'dW': classifier_grads['fc1']['dW'],
-            'db': classifier_grads['fc1']['db']
+        'fc1':{
+            'dW':classifier_grads['fc1']['dW'],
+            'db':classifier_grads['fc1']['db']
         },
-        'fc2': {
-            'dW': classifier_grads['fc2']['dW'],
-            'db': classifier_grads['fc2']['db']
-        }
+        'fc2':{
+                'dW':classifier_grads['fc2']['dW'],
+                'db':classifier_grads['fc2']['db']
+            }
     }
 
 # Step 51 - lenet_predict
