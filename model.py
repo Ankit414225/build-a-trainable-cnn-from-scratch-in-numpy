@@ -573,30 +573,12 @@ def train_one_epoch(params, opt_state, x, y,
                     beta_one, beta_two,
                     eps, step_counter,
                     seed=0):
-
-    losses = []
-
-    for xb, yb in iterate_minibatches(
-        x, y, batch_size, seed
-    ):
-
-        step_counter += 1
-
-        params, opt_state, loss = train_step(
-            params,
-            opt_state,
-            xb,
-            yb,
-            lr,
-            beta_one,
-            beta_two,
-            eps,
-            step_counter
-        )
-
+    losses=[]
+    for xb,yb in iterate_minibatches(x,y,batch_size,seed):
+        step_counter+=1
+        params,opt_state,loss=train_step(params,opt_state,xb,yb,lr,beta_one,beta_two,eps,step_counter)
         losses.append(loss)
-
-    return params, opt_state, step_counter, losses
+    return params,opt_state,step_counter,losses
 
 # Step 58 - train_loop
 def train_loop(params, x_train, y_train,
