@@ -504,16 +504,16 @@ def shuffle_indices(n, seed=0):
 
 # Step 54 - train_test_split
 def train_test_split(x, y, test_fraction=0.2, seed=0):
-    n = len(x)
-    idx = shuffle_indices(n, seed)
-    n_test = int(n * test_fraction)
-    test_idx = idx[:n_test]
-    train_idx = idx[n_test:]
-    x_train = x[train_idx]
-    y_train = y[train_idx]
-    x_test = x[test_idx]
-    y_test = y[test_idx]
-    return x_train, y_train, x_test, y_test
+    n=len(x)
+    idx=shuffle_indices(n,seed)
+    n_test=int(n*test_fraction)
+    test_idx=idx[:n_test]
+    train_idx=idx[n_test:]
+    x_train=x[train_idx]
+    y_train=y[train_idx]
+    x_test=x[test_idx]
+    y_test=y[test_idx]
+    return (x_train,y_train,x_test,y_test)
 
 # Step 55 - iterate_minibatches
 def iterate_minibatches(x, y, batch_size, seed=0):
