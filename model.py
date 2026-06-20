@@ -528,60 +528,44 @@ def iterate_minibatches(x, y, batch_size, seed=0):
 def train_step(params, opt_state, xb, yb,
                lr, beta_one, beta_two, eps, step):
 
-    logits, caches = lenet_forward(xb, params)
-
-    loss = softmax_cross_entropy_forward(logits, yb)
-
-    dlogits = softmax_cross_entropy_backward(logits, yb)
-
-    grads = lenet_backward(dlogits, caches)
-
-    new_params = {}
-    new_opt_state = {}
-
-    for layer in ['conv1', 'conv2', 'fc1', 'fc2']:
-
-        new_params[layer] = {}
-        new_opt_state[layer] = {}
-
-        W, mW, vW = adam_step(
-            params[layer]['W'],
-            grads[layer]['dW'],
-            opt_state[layer]['W']['m'],
-            opt_state[layer]['W']['v'],
-            step,
-            lr,
-            beta_one,
-            beta_two,
-            eps
-        )
-
-        b, mb, vb = adam_step(
-            params[layer]['b'],
-            grads[layer]['db'],
-            opt_state[layer]['b']['m'],
-            opt_state[layer]['b']['v'],
-            step,
-            lr,
-            beta_one,
-            beta_two,
-            eps
-        )
-
-        new_params[layer]['W'] = W
-        new_params[layer]['b'] = b
-
-        new_opt_state[layer]['W'] = {
-            'm': mW,
-            'v': vW
+    logits,cache=lenet_forward(xb,params)
+    loss=softmax_cross_entropy_forward(logits,yb)
+    dlogits=softmax_cross_entropy_backward(logits,yb)
+    grads=lenet_backward(dlogits,cache)
+    new_params={}
+    new_opt_state={}
+    for layer in ['conv1','conv2','fc1','fc2']:
+        new_params[layer]={}
+        new_opt_state[layer]={}
+        W,mW,vW=adam_step(params[layer]['W'],
+        grads[layer]['dW'],
+        opt_state[layer]['W']['m'],
+        opt_state[layer]['W']['v'],
+        step,
+        lr,
+        beta_one,
+        beta_two,
+        eps)
+        b,mb,vb=adam_step(params[layer]['b'],
+        grads[layer]['db'],
+        opt_state[layer]['b']['m'],
+        opt_state[layer]['b']['v'],
+        step,
+        lr,
+        beta_one,
+        beta_two,
+        eps)
+        new_params[layer]['W']=W
+        new_params[layer]['b']=b
+        new_opt_state[layer]['W']={
+            'm':mW,
+            'v':vW
         }
-
-        new_opt_state[layer]['b'] = {
-            'm': mb,
-            'v': vb
+        new_opt_state[layer]['b']={
+            'm':mb,
+            'v':vb
         }
-
-    return new_params, new_opt_state, loss
+    return new_params,new_opt_state,loss
 
 # Step 57 - train_one_epoch
 def train_one_epoch(params, opt_state, x, y,
