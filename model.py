@@ -240,8 +240,10 @@ def relu_forward(x):
     }
     return np.maximum(0,x),cache
 
-# Step 26 - relu_backward (not yet solved)
-# TODO: implement
+# Step 26 - relu_backward
+def relu_backward(d_out, cache):
+    x=cache['x']
+    return d_out*(x>0)
 
 # Step 27 - flatten_forward (not yet solved)
 # TODO: implement
