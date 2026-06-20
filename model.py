@@ -345,7 +345,6 @@ def adam_step(param, grad, m, v, t, lr, beta_one, beta_two, eps):
     v=adam_update_v(v,grad,beta_two)
     m_hat=adam_bias_correct(m,beta_one,t)
     v_hat=adam_bias_correct(v,beta_two,t)
-    # TODO: chain the four Adam helpers and return (new_param, new_m, new_v)
     return (adam_param_step(param,m_hat,v_hat,lr,eps),m,v)
 
 # Step 42 - init_conv_layer (not yet solved)
