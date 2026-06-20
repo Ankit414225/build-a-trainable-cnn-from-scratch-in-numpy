@@ -459,11 +459,11 @@ def backward_classifier_block(dlogits, cache):
     return {
         'dx': dx,
         'fc1': {
-            'dw': dw1,
+            'dW': dw1,
             'db': db1
         },
         'fc2': {
-            'dw': dw2,
+            'dW': dw2,
             'db': db2
         }
     }
