@@ -326,8 +326,9 @@ def adam_update_v(v, grad, beta_two):
     g_sq=np.square(grad)
     return beta_two*v+(1-beta_two)*g_sq
 
-# Step 39 - adam_bias_correct (not yet solved)
-# TODO: implement
+# Step 39 - adam_bias_correct
+def adam_bias_correct(moment, beta, t):
+    return moment/(1-beta**t)
 
 # Step 40 - adam_param_step (not yet solved)
 # TODO: implement
