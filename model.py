@@ -291,8 +291,9 @@ import numpy as np
 def linear_grad_bias(dout):
     return np.sum(dout,axis=0)
 
-# Step 33 - linear_backward (not yet solved)
-# TODO: implement
+# Step 33 - linear_backward
+def linear_backward(dout, cache):
+    return (linear_grad_input(dout,cache),linear_grad_weights(x,dout),linear_grad_bias(dout))
 
 # Step 34 - softmax_cross_entropy_forward (not yet solved)
 # TODO: implement
