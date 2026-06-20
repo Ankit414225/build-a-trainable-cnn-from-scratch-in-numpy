@@ -233,8 +233,12 @@ def maxpool2d_backward(d_out, cache):
                     j*stride:j*stride+kernel]+=scatter_grad_window(d_out[n,c,i,j],argmax[n,c,i,j],kernel)
     return dx_grad
 
-# Step 25 - relu_forward (not yet solved)
-# TODO: implement
+# Step 25 - relu_forward
+def relu_forward(x):
+    cache={
+        'x':x
+    }
+    return np.maximum(0,x),cache
 
 # Step 26 - relu_backward (not yet solved)
 # TODO: implement
