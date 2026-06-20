@@ -300,8 +300,12 @@ def softmax_cross_entropy_forward(logits, y):
     probs=stable_softmax(logits)
     return abs(cross_entropy_loss(probs,y,eps=1e-12))
 
-# Step 35 - softmax_cross_entropy_backward (not yet solved)
-# TODO: implement
+# Step 35 - softmax_cross_entropy_backward
+def softmax_cross_entropy_backward(logits, y):
+    prob=stable_softmax((logits))
+    N=logits.shape[0]
+    dlogits=(prob-one_hot(y,logits.shape[1]))/N
+    return dlogits+0.0
 
 # Step 36 - sgd_step (not yet solved)
 # TODO: implement
